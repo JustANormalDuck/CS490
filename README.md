@@ -23,3 +23,5 @@ is where points are assigned to questions.
 4) Instructor triggers autograding. Then, can review results, tweak 
 scores and add comments. The instructor can then release the results.
 5) Student can review final results, including comments.
+
+![image](https://user-images.githubusercontent.com/91507126/189237613-e786613f-4711-4654-863a-61f389c7997d.png)
