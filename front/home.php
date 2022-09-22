@@ -7,6 +7,7 @@
 </head>
 <body>
 	<?php
+		//Sending login info to middle end
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
@@ -41,5 +42,34 @@
         
         <input type="submit" name="login" value="Login"/>
     </form>
+
+
+    <?php
+    	//Retrieving data from middle end
+    	$curl = curl_init();
+    	curl_setopt($curl, CURLOPT_URL, "https://afsaccess4/~nk82/middle_login.php");
+    	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+    	$response = curl_exec($curl);
+    	if($e = curl_error($curl)) {
+    	    echo $e;
+    	} 
+    	else {
+    	    $decodedData = json_decode($response, true);
+    	    if ($response->role == "T"){
+    	    	header('Location: teacher.php');
+     			exit();
+    	    }
+    	    else if ($response->role == "S"){
+    	        header('Location: student.php');
+     			exit();
+    	    }
+    	    else{
+    	    	echo "Invalid username or password";
+    	    }
+    	}
+
+    	curl_close($curl);
+    ?>
 </body>
 </html>
