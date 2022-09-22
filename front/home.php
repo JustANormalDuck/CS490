@@ -10,7 +10,7 @@
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
-		$hash_password = password_hash($password, PASSWORD_DEFAULT);
+		$hash_password = password_hash($password, PASSWORD_BCRYPT);
 		$URL = "https://afsaccess4/~nk82/middle_login.php";
 
 		$post_params="username=$username&password=$password";
