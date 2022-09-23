@@ -2,7 +2,7 @@
 require_once("db.php");
 //get username password from jerry
 $obj = new stdClass();
-$obj->username = $_POST['username'];
+$obj->username = strtolower($_POST['username']);
 $obj->password = $_POST['password'];
 
 $db = getDB();
