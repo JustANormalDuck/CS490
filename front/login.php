@@ -30,7 +30,7 @@
     }
     echo "<form action=\"\" method=\"post\">";
     echo "Username: <input name=\"username\" type=\"text\" />";
-    echo "Password: <input name=\"password\" type=\"text\" />";
+    echo "Password: <input name=\"password\" type=\"password\" />";
     echo "<input name=\"submit\" type=\"submit\" />";
     echo "</form>";
   }
