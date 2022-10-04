@@ -1,6 +1,6 @@
 <?php
 require_once("db.php");
-//get difficulty topic questoiin from jerry
+//get difficulty topic question from jerry
 $obj = new stdClass();
 $obj->difficulty = $_POST['difficulty'];
 $obj->topic = $_POST['topic'];
