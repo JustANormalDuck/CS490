@@ -8,7 +8,7 @@ $obj->question = $_POST['question'];
 
 $db = getDB();
 if (isset($db)) {
-    $stmt = $db->prepare("INSERT INTO Questions(difficulty, topic, question) VALUES(:difficulty, :topic, :question)");
+    $stmt = $db->prepare("INSERT INTO Questions(difficulty, topic, question) VALUES(:difficulty, :topic, :question);");
     $params = array(":difficulty" => $obj->difficulty, ":topic" => $obj->topic, ":question" => $obj->question);
     $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
