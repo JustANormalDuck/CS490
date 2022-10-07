@@ -6,7 +6,7 @@ $obj = new stdClass();
 $db = getDB();
 if (isset($db)){
     //need to change to greater than 4 that way it doesnt pull the dummy questions
-    $stmt = $db->prepare("SELECT * from Questions WHERE id > 0");
+    $stmt = $db->prepare("SELECT id, difficulty, topic, question from Questions WHERE id > 0");
     $stmt->execute();
     $e = $stmt->errorInfo();
     if ($e[0] != "00000"){
