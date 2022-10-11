@@ -2,10 +2,10 @@
 require_once("db.php");
 //get test_name question_nums points question_ids from jerry
 $obj = new stdClass();
-$obj->testName = $_POST['testName'];
-$obj->questionNumList = $_POST['questionNumList'];
-$obj->questionPointList = $_POST['questionPointList'];
-$obj->questionIdList = $_POST['questionIdList'];
+$obj->testName = $_POST['test_name'];
+$obj->questionNumList = $_POST['question_num_list'];
+$obj->questionPointList = $_POST['question_point_list'];
+$obj->questionIdList = $_POST['question_id_list'];
 
 $db = getDB();
 if (isset($db)) {
