@@ -13,7 +13,7 @@ if (isset($db)){
     $obj->error = "DB RETURNED: " . var_export($r, true);
     $e = $stmt->errorInfo();
     if ($e[0] != "00000"){
-        $obj->error = "Something went wrong with " . $stmt;
+        $obj->debug = "Something went wrong with error code " . $e[0];
     }
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($result && isset($result["hash"]) && isset($result["role"])){
