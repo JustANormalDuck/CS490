@@ -10,7 +10,7 @@ if (isset($db)){
     $stmt->execute();
     $e = $stmt->errorInfo();
     if ($e[0] != "00000"){
-        $obj->error = "Something went wrong with " . $stmt;
+        $obj->debug = "Something went wrong with error code " . $e[0];
     }
     $exams = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if (count($exams) > 0){
