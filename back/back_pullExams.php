@@ -17,10 +17,10 @@ if (isset($db)){
         $ids = array();
         $names = array();
         $questions = array();
-        foreach ($exams as $e){
-            array_push($ids, $e["id"]);
-            array_push($names, $e["test_name"]);
-            array_push($questions, $e["question_num_list"][strlen($e["question_num_list"])-1]);
+        foreach ($exams as $ee){
+            array_push($ids, $ee["id"]);
+            array_push($names, $ee["test_name"]);
+            array_push($questions, $ee["question_num_list"][strlen($ee["question_num_list"])-1]);
         }
         $obj->id = $ids;
         $obj->testName = $names;
