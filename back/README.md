@@ -5,5 +5,5 @@ EXAMS TABLE STRUCTURE
 QUESTIONS TABLE STRUCTURE
 ![image](https://user-images.githubusercontent.com/70586786/194128649-825a2937-d97c-4bb6-b795-7a3a6da507d4.png)
 USERS TABLE STRUCTURE
-![image](https://user-images.githubusercontent.com/70586786/195164419-12b0ec6c-d037-4aa8-ad09-ba9de8ae3a90.png)
+![image](https://user-images.githubusercontent.com/70586786/195223552-f200e03f-6813-4f48-a9a3-6faea3d39acf.png)
 GRADES TABLE STRUCTURE
