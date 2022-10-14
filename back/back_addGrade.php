@@ -1,19 +1,18 @@
 <?php
 require_once("db.php");
-//get username exam_id earned_points possible_points grade from nalby autograder
+//get username exam_id earned_points possible_points grade comments from nalby autograder
 $obj = new stdClass();
 $obj->username = $_POST['username'];
 $obj->examID = $_POST['exam_id'];
 $obj->earnedPoints = $_POST['earned_points']; //also default for updated points
 $obj->possiblePoints = $_POST['possible_points'];
 $obj->grade = $_POST['grade'];
-$obj->comment = "Add comments here";
-$obj->released = 0;
+$obj->comments = $_POST['comments'];
 
 $db = getDB();
-if (isset($db)) {
-    $stmt = $db->prepare("INSERT INTO Grades(username, exam_id, earned_points, updated_points, possible_points, grade, comments, released) VALUES(:username, :exam_id, :earned, :updated, :possible, :grade, :comment, :released);");
-    $params = array(":username" => $obj->username, ":exam_id" => $obj->examID, ":earned" => $obj->earnedPoints, ":updated" => $obj->earnedPoints, ":possible" => $obj->possiblePoints, ":grade" => $obj->comment, ":released" => $obj->released);
+if (isset($db)){
+    $stmt = $db->prepare("UPDATE Grades SET earned_points = :earned, updated_points = :earned, possible_points = :possible, grade = :grade, comments = :comments WHERE username = :username and exam_id = :examID;");
+    $params = array(":username" => $obj->username, ":exam_id" => $obj->examID, ":earned" => $obj->earnedPoints, ":possible" => $obj->possiblePoints, ":grade" => $obj->grade, ":comments" => $obj->comments);
     $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
     if ($e[0] == "00000") {
