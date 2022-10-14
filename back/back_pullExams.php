@@ -2,12 +2,14 @@
 require_once("db.php");
 //pull all exams from Exams table to send to jerry for exam selection
 $obj = new stdClass();
+$obj->username = $_POST["username"];
 
 $db = getDB();
 if (isset($db)){
     //need to change to greater than 3 that way it doesnt pull the dummy exams
-    $stmt = $db->prepare("SELECT id, test_name, question_num_list from Exams WHERE id > 0;");
-    $stmt->execute();
+    $stmt = $db->prepare("SELECT id, test_name, question_num_list from Exams WHERE id > 0 and id not in (Select exam_id from Grades where username = :username);");
+    $params = array(":username" => $obj->username);
+    $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
     if ($e[0] != "00000"){
         $obj->debug = "Something went wrong with error code " . $e[0];
