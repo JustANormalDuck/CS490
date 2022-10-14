@@ -4,14 +4,14 @@ require_once("db.php");
 $obj = new stdClass();
 $obj->username = $_POST["username"];
 $obj->examID = $_POST["exam_id"];
-$obj->earnedPoints = $_POST["earned_points"];
+$obj->updatedPoints = $_POST["updated_points"];
 $obj->grade = $_POST["grade"];
 $obj->comments = $_POST["comments"];
 
 $db = getDB();
 if (isset($db)){
-    $stmt = $db->prepare("UPDATE Grades SET earned_points = :earnedPoints, grade = :grade, comments = :comments, released = 1 WHERE username = :username and exam_id = :examID;");
-    $params = array(":earnedPoints" => $obj->earnedPoints, ":grade" => $obj->grade, ":comments" => $obj->comments, ":username" => $obj->username, ":examID" => $obj->examID);
+    $stmt = $db->prepare("UPDATE Grades SET updated_points = :updatedPoints, grade = :grade, comments = :comments, released = 1 WHERE username = :username and exam_id = :examID;");
+    $params = array(":updatedPoints" => $obj->updatedPoints, ":grade" => $obj->grade, ":comments" => $obj->comments, ":username" => $obj->username, ":examID" => $obj->examID);
     $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
     if ($e[0] == "00000") {
