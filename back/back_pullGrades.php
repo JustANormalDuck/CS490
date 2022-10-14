@@ -7,10 +7,10 @@ $obj->username = $_POST["username"];
 $db = getDB();
 if (isset($db)){
     if ($obj->username == "theo"){
-        $stmt = $db->prepare("SELECT username, exam_id, earned_points, possible_points, grade, comments from Grades;");
+        $stmt = $db->prepare("SELECT username, exam_id, earned_points, updated_points, possible_points, grade, comments from Grades;");
         $stmt->execute();
     } else {
-        $stmt = $db->prepare("SELECT username, exam_id, earned_points, possible_points, grade, comments from Grades WHERE username = :username and released = 1;");
+        $stmt = $db->prepare("SELECT username, exam_id, earned_points, updated_points, possible_points, grade, comments from Grades WHERE username = :username and released = 1;");
         $params = array(":username" => $obj->username);
         $r = $stmt->execute($params);
     }
@@ -23,6 +23,7 @@ if (isset($db)){
         $usernames = array();
         $ids = array();
         $earned = array();
+        $updated = array();
         $possible = array();
         $scores = array();
         $teacherComments = array();
@@ -30,6 +31,7 @@ if (isset($db)){
             array_push($usernames, $g["username"]);
             array_push($ids, $g["exam_id"]);
             array_push($earned, $g["earned_points"]);
+            array_push($updated, $g["updated_points"]);
             array_push($possible, $g["possible_points"]);
             array_push($scores, $g["grade"]);
             array_push($teacherComments, $g["comments"]);
@@ -37,6 +39,7 @@ if (isset($db)){
         $obj->username = $usernames;
         $obj->examID = $ids;
         $obj->earnedPoints = $earned;
+        $obj->updatedPoints = $updated;
         $obj->possiblePoints = $possible;
         $obj->grade = $scores;
         $obj->comments = $teacherComments;
