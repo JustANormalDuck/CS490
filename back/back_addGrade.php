@@ -16,9 +16,9 @@ if (isset($db)){
     $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
     if ($e[0] == "00000") {
-        $obj->error = "Successfully entered a grade";
+        $obj->error = "Successfully entered a grade from the autograder";
     } else {
-        $obj->error = "An error occurred when entering the grade";
+        $obj->error = "An error occurred when entering the grade from the autograder";
     }
 } else {
     $obj->error = "Error setting db";
