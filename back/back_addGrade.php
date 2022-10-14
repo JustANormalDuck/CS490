@@ -4,7 +4,7 @@ require_once("db.php");
 $obj = new stdClass();
 $obj->username = $_POST['username'];
 $obj->examID = $_POST['exam_id'];
-$obj->earnedPoints = $_POST['earned_points'];
+$obj->earnedPoints = $_POST['earned_points']; //also default for updated points
 $obj->possiblePoints = $_POST['possible_points'];
 $obj->grade = $_POST['grade'];
 $obj->comment = "Add comments here";
@@ -12,8 +12,8 @@ $obj->released = 0;
 
 $db = getDB();
 if (isset($db)) {
-    $stmt = $db->prepare("INSERT INTO Grades(username, exam_id, earned_points, possible_points, grade, comments, released VALUES(:username, :exam_id, :earned, :possible, :grade, :comment, :released);");
-    $params = array(":username" => $obj->username, ":exam_id" => $obj->examID, ":earned" => $obj->earnedPoints, ":possible" => $obj->possiblePoints, ":grade" => $obj->comment, ":released" => $obj->released);
+    $stmt = $db->prepare("INSERT INTO Grades(username, exam_id, earned_points, updated_points, possible_points, grade, comments, released) VALUES(:username, :exam_id, :earned, :updated, :possible, :grade, :comment, :released);");
+    $params = array(":username" => $obj->username, ":exam_id" => $obj->examID, ":earned" => $obj->earnedPoints, ":updated" => $obj->earnedPoints, ":possible" => $obj->possiblePoints, ":grade" => $obj->comment, ":released" => $obj->released);
     $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
     if ($e[0] == "00000") {
