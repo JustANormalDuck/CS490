@@ -3,10 +3,11 @@ require_once("db.php");
 //pull grades from Grades table to send to jerry for release/viewing
 $obj = new stdClass();
 $obj->username = $_POST["username"];
+$role = $_POST["role"];
 
 $db = getDB();
 if (isset($db)){
-    if ($obj->username == "theo"){
+    if ($role == "T"){
         $stmt = $db->prepare("SELECT username, exam_id, earned_points, updated_points, possible_points, grade, comments from Grades;");
         $stmt->execute();
     } else {
