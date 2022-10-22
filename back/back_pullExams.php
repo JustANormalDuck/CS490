@@ -7,7 +7,7 @@ $obj->username = $_POST["username"];
 $db = getDB();
 if (isset($db)){
     //need to change to greater than 3 that way it doesnt pull the dummy exams
-    $stmt = $db->prepare("SELECT id, test_name, question_num_list from Exams WHERE id > 0 and id not in (Select exam_id from Grades where username = :username);");
+    $stmt = $db->prepare("SELECT id, test_name, question_num_list, question_id_list from Exams WHERE id > 0 and id not in (Select exam_id from Grades where username = :username);");
     $params = array(":username" => $obj->username);
     $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
@@ -19,14 +19,17 @@ if (isset($db)){
         $ids = array();
         $names = array();
         $questions = array();
+        $questionIDs = array();
         foreach ($exams as $ee){
             array_push($ids, $ee["id"]);
             array_push($names, $ee["test_name"]);
             array_push($questions, $ee["question_num_list"][strlen($ee["question_num_list"])-1]);
+            array_push($questionIDs, $ee["question_id_list"]);
         }
         $obj->id = $ids;
         $obj->testName = $names;
         $obj->numQuestions = $questions;
+        $obj->qIDs = $questionIDs;
         $obj->error = "Exams successfully returned";
     } else {
         $obj->error = "No exams returned";
