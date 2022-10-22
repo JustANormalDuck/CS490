@@ -8,10 +8,10 @@ $role = $_POST["role"];
 $db = getDB();
 if (isset($db)){
     if ($role == "T"){
-        $stmt = $db->prepare("SELECT username, exam_id, earned_points, updated_points, possible_points, grade, comments from Grades;");
+        $stmt = $db->prepare("SELECT username, exam_id, student_responses, earned_points, updated_points, possible_points, grade, comments from Grades;");
         $stmt->execute();
     } else {
-        $stmt = $db->prepare("SELECT username, exam_id, earned_points, updated_points, possible_points, grade, comments from Grades WHERE username = :username and released = 1;");
+        $stmt = $db->prepare("SELECT username, exam_id, student_responses, earned_points, updated_points, possible_points, grade, comments from Grades WHERE username = :username and released = 1;");
         $params = array(":username" => $obj->username);
         $r = $stmt->execute($params);
     }
@@ -23,6 +23,7 @@ if (isset($db)){
     if (count($grades) > 0){
         $usernames = array();
         $ids = array();
+        $responses = array();
         $earned = array();
         $updated = array();
         $possible = array();
@@ -31,6 +32,7 @@ if (isset($db)){
         foreach ($grades as $g){
             array_push($usernames, $g["username"]);
             array_push($ids, $g["exam_id"]);
+            array_push($responses, $g["student_responses"]);
             array_push($earned, $g["earned_points"]);
             array_push($updated, $g["updated_points"]);
             array_push($possible, $g["possible_points"]);
@@ -39,6 +41,7 @@ if (isset($db)){
         }
         $obj->username = $usernames;
         $obj->examID = $ids;
+        $obj->studentResponses = $responses;
         $obj->earnedPoints = $earned;
         $obj->updatedPoints = $updated;
         $obj->possiblePoints = $possible;
