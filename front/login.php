@@ -1,4 +1,5 @@
 <?php
+  session_start();
   if (isset($_POST['submit'])) 
   {
     ob_start();
@@ -17,11 +18,16 @@
     $result = curl_exec($ch);
     curl_close($ch);
     $decodedData = json_decode($result, true);
+
     if ($decodedData["role"] == "T"){
+      $_SESSION['username'] = $_POST['username'];
+      $_SESSION['role'] = 'T';
       die(header('Location: teacher.php'));
       exit();
     }
     else if ($decodedData["role"] == "S"){
+      $_SESSION['username'] = $_POST['username'];
+      $_SESSION['role'] = 'S';
       die(header('Location: student.php'));
       exit();
     }
@@ -42,7 +48,6 @@
   }
   
   else {
-    
     echo '<div class="main">';
     echo '<p class="sign" align="center">Sign in</p>';
     echo "<form class='form1' action=\"\" method=\"post\">";
