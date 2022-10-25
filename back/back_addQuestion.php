@@ -8,17 +8,17 @@ $obj->question = $_POST['question'];
 $obj->funcName = $_POST['function'];
 $obj->case1 = $_POST['case1'];
 $obj->case2 = $_POST['case2'];
-if (!isset($obj->$_POST['case3'])){
+if (!isset($_POST['case3'])){
     $obj->case3 = "ITANI";
 } else {
     $obj->case3 = $_POST['case3'];
 }
-if (!isset($obj->$_POST['case4'])){
+if (!isset($_POST['case4'])){
     $obj->case4 = "ITANI";
 } else {
     $obj->case4 = $_POST['case4'];
 }
-if (!isset($obj->$_POST['case5'])){
+if (!isset($_POST['case5'])){
     $obj->case5 = "ITANI";
 } else {
     $obj->case5 = $_POST['case5'];
