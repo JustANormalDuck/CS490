@@ -13,8 +13,8 @@
   <div class="topnav">
   <ul>
     <li><a href="student.php">Home</a></li>
-    <li><a href="#0">Take Exam</a></li>
-    <li><a href="#0">View Score</a></li>
+    <li><a href="takeexam.php">Take Exam</a></li>
+    <li><a href="viewscoresStudent.php">View Score</a></li>
 
     <li><a class="logout" href="logout.php">Logout</a></li>
   </ul>

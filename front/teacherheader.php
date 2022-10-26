@@ -13,10 +13,11 @@
   <div class="topnav">
   <ul>
     <li><a href="teacher.php">Home</a></li>
-    <li><a href="#0">Take Exam</a></li>
-    <li><a href="#0">View Score</a></li>
-
-    <li><a class="logout" href="#0">Logout</a></li>
+    <li><a href="addExam.php">Add Exams</a></li>
+    <li><a href="addquestion.php">Add Questions</a></li>
+    <li><a href="#0">AutoGrade</a></li>
+    <li><a href="#0">Update Scores</a></li>
+    <li><a class="logout" href="logout.php">Logout</a></li>
   </ul>
   </div>
 </nav>

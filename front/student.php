@@ -1,8 +1,16 @@
 <?php	
 	require_once 'header.php';
+  echo "STUDENT LANDING PAGE";
+  echo '</br>';
+  echo '</br>';
+  
+  echo 'Welcome, ';
+  echo $_SESSION["username"];
 
-  echo $_SESSION['username'];
-  echo $_SESSION['role'];
+  echo '</br>';
+
+  echo 'Your role is ';
+  echo $_SESSION["role"];
   
 	/*
 	$username = $_POST['username'];
