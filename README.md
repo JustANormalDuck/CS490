@@ -1,5 +1,10 @@
 # CS490 Grading Website
 
+Roles: 
+James Fell (Back End)
+Nalby Kadkoui (Middle End)
+Jerry Zheng (Front End)
+
 ---
 Alpha: Must run on afsaccess4
 1. One login screen for 2 levels of access: Teacher and Student.
