@@ -30,7 +30,7 @@
     $username = $_SESSION["username"];
     $examNum = $_POST['id'];
     
-    for ($i = 0; $i < sizeof($decodedData['id']); $i++){
+    for ($i = 0; $i < $decodeLength; $i++){
       if ($decodedData['id'][$i] == $examNum){
         $questionLst =  explode(",", $decodedData['qIDs'][$i]);
         $questionptLst = explode(",", $decodedData['pointList'][$i]);
