@@ -8,7 +8,7 @@ $role = $_POST["role"];
 $db = getDB();
 if (isset($db)){
     if ($role == "T"){
-        $stmt = $db->prepare("SELECT username, exam_id, test_name, student_responses, earned_points, updated_points, possible_points, grade, comments from Grades;");
+        $stmt = $db->prepare("SELECT * from Grades;");
         $stmt->execute();
     } else {
         $stmt = $db->prepare("SELECT username, exam_id, test_name, student_responses, earned_points, updated_points, possible_points, grade, comments from Grades WHERE username = :username and released = 1;");
