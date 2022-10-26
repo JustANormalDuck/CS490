@@ -1,9 +1,9 @@
 <?php
 $obj = new stdClass();
-$name= $_POST['username'];
+$username= $_POST['username'];
 $password = $_POST['password'];
 $URL= 'https://afsaccess4.njit.edu/~jmf64/back_login.php';
-$post_params="username=$name&password=$password";
+$post_params="username=$username&password=$password";
 $ch = curl_init();
 $ch = curl_init();
 $options = array(CURLOPT_URL => $URL,
