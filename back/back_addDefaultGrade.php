@@ -15,7 +15,7 @@ $obj->released = 0;
 $db = getDB();
 if (isset($db)){
     $stmt = $db->prepare("INSERT INTO Grades(username, exam_id, test_name, student_responses, earned_points, updated_points, possible_points, grade, comments, released) VALUES(:username, :exam_id, :test_name, :responses, :earned, :updated, :possible, :grade, :comment, :released);");
-    $params = array(":username" => $obj->username, ":exam_id" => $obj->examID, , ":test_name" => $obj->testName, ":responses" => $obj->responses, ":earned" => $obj->earnedPoints, ":updated" => $obj->earnedPoints, ":possible" => $obj->possiblePoints, ":grade" => $obj->comment, ":released" => $obj->released);
+    $params = array(":username" => $obj->username, ":exam_id" => $obj->examID, ":test_name" => $obj->testName, ":responses" => $obj->responses, ":earned" => $obj->earnedPoints, ":updated" => $obj->earnedPoints, ":possible" => $obj->possiblePoints, ":grade" => $obj->comment, ":released" => $obj->released);
     $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
     if ($e[0] == "00000") {
