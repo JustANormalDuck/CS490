@@ -30,13 +30,21 @@
     $username = $_SESSION["username"];
     $examNum = $_POST['id'];
     
+    $found = false;
     for ($i = 0; $i < $decodeLength; $i++){
       if ($decodedData['id'][$i] == $examNum){
         $questionLst =  explode(",", $decodedData['qIDs'][$i]);
         $questionptLst = explode(",", $decodedData['pointList'][$i]);
         $_SESSION['testName'] = $decodedData['testName'][$i];
+        $found = true;
         break;
       }
+    }
+
+    if (!$found){
+      echo "<script type=\"text/javascript\">
+      window.location.href = 'takeexam.php';
+      </script>";
     }
 
     /*
