@@ -9,7 +9,7 @@ $db = getDB();
 if (isset($db)){
     if ($obj->role == "T"){
         $stmt = $db->prepare("SELECT * from Grades;");
-        $stmt->execute($params);
+        $stmt->execute();
     } else {
         $stmt = $db->prepare("SELECT username, exam_id, test_name, student_responses, earned_points, updated_points, possible_points, grade, comments from Grades WHERE username = :username and released = 1;");
         $params = array(":username" => $obj->username);
