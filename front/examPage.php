@@ -7,6 +7,7 @@
     $responses = "";
     while (1){
       if(isset($_POST["answer$counter"])){
+        #echo $_POST["answer$counter"];
         $responses .= $_POST["answer$counter"] . "?";
         $counter++;
       }
@@ -19,9 +20,11 @@
     $username = $_SESSION['username'];
     $examNum = $_SESSION['examNum'];
     $testName = $_SESSION['testName'];
-
+    $questionPts = $_SESSION['questionPts'];
+    $ptList = $_SESSION['ptlst'];
+    #$URL = 'https://afsaccess4.njit.edu/~jmf64/back_addDefaultGrade.php';
     $URL= 'https://afsaccess4.njit.edu/~nk82/middle_addDefaultGrade.php';
-    $post_params="username=$username&exam_id=$examNum&test_name=$testName&student_responses=$responses";
+    $post_params="username=$username&exam_id=$examNum&test_name=$testName&student_responses=$responses&possible_points=$ptList";
     $ch = curl_init();
     $options = array(CURLOPT_URL => $URL,
                    CURLOPT_HTTPHEADER =>
@@ -47,10 +50,12 @@
   $username = $_SESSION['username'];
   $examNum = $_SESSION['examNum'];
   $questionLst = $_SESSION['questionLst'];
+  $questionPts = $_SESSION['questionPts'];
 
   $questionDiff = array();
   $questionTopic = array();
   $question = array();
+  $qpts = array();
   $error = array();
 
   for ($i = 0; $i < sizeof($questionLst); $i++){
@@ -72,6 +77,7 @@
 
     array_push($questionDiff, $decodedData['difficulty']);
     array_push($questionTopic, $decodedData['topic']);
+    array_push($qpts, $decodedData['question_point_list']);
     array_push($question, $decodedData['question']);
   }
   echo "<form action=\"\" method=\"post\">";
@@ -83,6 +89,10 @@
 
     echo "Topic: ";
     echo $questionTopic[$i];
+    echo "</br>";
+
+    echo "Points: ";
+    echo $questionPts[$i];
     echo "</br>";
 
     echo "Question: ";

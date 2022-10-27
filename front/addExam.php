@@ -7,22 +7,19 @@
 		$scoresLst = $_POST['scores'];
 		$ordering = "";
 
-		$s = explode("?", $questionLst);
+		$s = explode(",", $questionLst);
 		for ($i = 0; $i < sizeof($s); $i++)
 		{
-			$ordering .= $i . ",";
+			$ordering .= strval($i+1) . ",";
 		}
 
 		$ordering = rtrim($ordering, ",");
-
 		$testName = $_POST['test_name'];
 		$questionNumList = $ordering;
 		$questionPointList = $scoresLst;
 		$questionIdList = $questionLst;
 
-		#Change to middle end later
-		#$URL= 'https://afsaccess4.njit.edu/~nk82/middle_addExam.php';
-		$URL= 'https://afsaccess4.njit.edu/~jmf64/back_addExam.php';
+		$URL= 'https://afsaccess4.njit.edu/~nk82/middle_addExam.php';
 		$post_params="test_name=$testName&question_num_list=$questionNumList&question_point_list=$questionPointList&question_id_list=$questionIdList";
 		$ch = curl_init();
 		$options = array(CURLOPT_URL => $URL,

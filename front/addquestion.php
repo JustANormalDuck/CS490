@@ -48,9 +48,11 @@
     echo '<label> Question </label></br>';
     echo '<textarea id="question" name="question" rows="5"cols="33" style="white-space: pre-wrap; placeholder="Question"></textarea>';
     echo "</br></br>";
+
     echo "<input name=\"functionName\" type=\"text\" placeholder='Function Name'/>";
     echo "</br></br>";
 
+    echo "<label> Test Cases must be passed in the form functionName(input)?output</label>  </br> ";
     echo "<input name=\"testCase1\" type=\"text\" placeholder='Test Case 1'/>";
     echo "<input name=\"testCase2\" type=\"text\" placeholder='Test Case 2'/>";
     echo "</br></br>";

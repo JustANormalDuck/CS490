@@ -1,5 +1,4 @@
 <?php 
-  #ASK IF IT HAS TO BE IN TABLES :)
   require_once 'header.php';
   $username = $_SESSION["username"];
   $role = $_SESSION["role"];
@@ -16,57 +15,53 @@
   $result = curl_exec($ch);
   curl_close($ch);
   $decodedData = json_decode($result, true);
-  for ($i = 0; $i < sizeof($decodedData['examID']); $i++){
-    echo "------------------</br>";
-    echo "Test Name: ";
-    echo $decodedData['testName'][$i];
-    echo "</br></br>";
+  echo "<table>";
+  echo "<tr>";
+    echo "<th style=\"height:100px;width:150px\">Test Name</th>";
+    echo "<th style=\"height:100px;width:150px\">Student Responses</th>";
+    echo "<th style=\"height:100px;width:150px\">Earned Points</th>";
+    echo "<th style=\"height:100px;width:150px\">Updated Points</th>";
+    echo "<th style=\"height:100px;width:150px\">Possible Points</th>";
+    echo "<th style=\"height:100px;width:150px\">Comments</th>";
+  echo "</tr>";
 
-    echo "Student Responses: ";
+  for ($i = 0; $i < sizeof($decodedData['examID']); $i++)
+  {
+
+    echo "<tr>";
+    echo "<td style=\"style=\"height:100px;width:150px;text-align: center;\">" . $decodedData['testName'][$i] . "</td>";
+
     $response = explode("?", $decodedData['studentResponses'][$i]);
-    echo "</br>";
+    echo "<td style=\"height:100px;width:150px;text-align:center;\">";
     foreach ($response as $ans){
       echo $ans;
       echo "</br>";
     }
-    echo "</br>";
+    echo "</td>";
 
-    echo "Earned Points: ";
     $response = explode("?", $decodedData['earnedPoints'][$i]);
-    echo "</br>";
+    echo "<td style=\"height:100px;width:150px;text-align:center;\">";
     foreach ($response as $ans){
       echo $ans;
       echo "</br>";
     }
-    echo "</br>";
+    echo "</td>";
 
-    echo "Updated Points: ";
-    $response = explode(",", $decodedData['updatedPoints'][$i]);
-    echo "</br>";
+    $response = explode("?", $decodedData['possiblePoints'][$i]);
+    echo "<td style=\"style=\"height:100px;width:150px;text-align:center;\">";
     foreach ($response as $ans){
       echo $ans;
       echo "</br>";
     }
-    echo "</br>";
+    echo "</td>";
 
-    echo "Possible Points: ";
-    $response = explode(",", $decodedData['possiblePoints'][$i]);
-    echo "</br>";
-    foreach ($response as $ans){
-      echo $ans;
-      echo "</br>";
-    }
-    echo "</br>";
-
-    echo "Grade: ";
-    echo $decodedData['grade'][$i];
-    echo "</br></br>";
-
-    echo "Comments: ";
-    echo $decodedData['comments'][$i];
-    echo "</br></br>";
+    echo "<td>" . $decodedData['grade'][$i] . "</td>";
+    echo "<td>" . $decodedData['comments'][$i] . "</td>";
+    echo "</tr>";
   }
+    echo "</table>";
 ?>
+
 
 <head>
   <title>Take Exam</title>

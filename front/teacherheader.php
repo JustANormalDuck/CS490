@@ -15,8 +15,8 @@
     <li><a href="teacher.php">Home</a></li>
     <li><a href="addExam.php">Add Exams</a></li>
     <li><a href="addquestion.php">Add Questions</a></li>
-    <li><a href="#0">AutoGrade</a></li>
-    <li><a href="#0">Update Scores</a></li>
+    <li><a href="frontAutograde2.php">AutoGrade</a></li>
+    <li><a href="updateScores.php">Update Scores</a></li>
     <li><a class="logout" href="logout.php">Logout</a></li>
   </ul>
   </div>

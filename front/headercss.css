@@ -31,3 +31,14 @@ body {
   float:right;
   align: right;
 }
+
+table {
+  border: 5px solid black;
+}
+
+th, td {
+  text-align: center;
+  height: 50px;
+  width: 150px;
+  border: 2px solid black;
+}

@@ -36,6 +36,7 @@
         $questionLst =  explode(",", $decodedData['qIDs'][$i]);
         $questionptLst = explode(",", $decodedData['pointList'][$i]);
         $_SESSION['testName'] = $decodedData['testName'][$i];
+        $_SESSION['ptlst'] = $decodedData['pointList'][$i];
         $found = true;
         break;
       }
@@ -57,6 +58,7 @@
     $_SESSION['examNum'] = $examNum;
     $_SESSION['questionLst'] = $questionLst;
     $_SESSION['questionPts'] = $questionptLst;
+
     echo "<script type=\"text/javascript\">
     window.location.href = 'examPage.php';
     </script>";
