@@ -7,7 +7,7 @@ $obj->examID = $_POST["exam_id"];
 
 $db = getDB();
 if (isset($db)){
-    $stmt = $db->prepare("SELECT username, exam_id, test_name, student_responses, earned_points, updated_points, possible_points, grade, comments from Grades WHERE username = :username and exam_id = :exam_id;");
+    $stmt = $db->prepare("SELECT username, exam_id, test_name, student_responses, earned_points, updated_points, possible_points, grade, auto_comments from Grades WHERE username = :username and exam_id = :exam_id;");
     $params = array(":username" => $obj->username, ":exam_id" => $obj->examID);
     $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
@@ -25,7 +25,7 @@ if (isset($db)){
             $obj->updatedPoints = $g["updated_points"];
             $obj->possiblePoints = $g["possible_points"];
             $obj->grade = $g["grade"];
-            $obj->comments = $g["comments"];
+            $obj->comments = $g["auto_comments"];
             $obj->error = "Grade successfully returned";
         }
     } else {
