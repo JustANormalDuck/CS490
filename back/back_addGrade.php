@@ -6,11 +6,11 @@ $obj->username = $_POST['username'];
 $obj->examID = $_POST['exam_id'];
 $obj->earnedPoints = $_POST['earned_points']; //also default for updated points
 $obj->grade = $_POST['grade'];
-$obj->comments = $_POST['comments'];
+$obj->comments = $_POST['auto_comments'];
 
 $db = getDB();
 if (isset($db)){
-    $stmt = $db->prepare("UPDATE Grades SET earned_points = :earned, updated_points = :earned, grade = :grade, comments = :comments WHERE username = :username and exam_id = :examID;");
+    $stmt = $db->prepare("UPDATE Grades SET earned_points = :earned, updated_points = :earned, grade = :grade, auto_comments = :comments WHERE username = :username and exam_id = :examID;");
     $params = array(":earned" => $obj->earnedPoints, ":grade" => $obj->grade, ":comments" => $obj->comments, ":username" => $obj->username, ":examID" => $obj->examID);
     $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
