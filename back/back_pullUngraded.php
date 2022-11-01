@@ -5,7 +5,7 @@ $obj = new stdClass();
 
 $db = getDB();
 if (isset($db)){
-    $stmt = $db->prepare("SELECT username, exam_id, test_name, student_responses, earned_points, updated_points, possible_points, grade, comments from Grades WHERE grade = -1;");
+    $stmt = $db->prepare("SELECT username, exam_id, test_name, student_responses, earned_points, updated_points, possible_points, grade, auto_comments, comments from Grades WHERE grade = -1;");
     $r = $stmt->execute();
     $e = $stmt->errorInfo();
     if ($e[0] != "00000"){
@@ -21,6 +21,7 @@ if (isset($db)){
         $updated = array();
         $possible = array();
         $scores = array();
+        $autoComments = array();
         $teacherComments = array();
         foreach ($grades as $g){
             array_push($usernames, $g["username"]);
@@ -31,6 +32,7 @@ if (isset($db)){
             array_push($updated, $g["updated_points"]);
             array_push($possible, $g["possible_points"]);
             array_push($scores, $g["grade"]);
+            array_push($autoComments, $g['auto_comments']);
             array_push($teacherComments, $g["comments"]);
         }
         $obj->username = $usernames;
@@ -41,6 +43,7 @@ if (isset($db)){
         $obj->updatedPoints = $updated;
         $obj->possiblePoints = $possible;
         $obj->grade = $scores;
+        $obj->auto = $autoComments;
         $obj->comments = $teacherComments;
         $obj->error = "Grades successfully returned";
     } else {
