@@ -1,10 +1,15 @@
 <?php
 require_once("db.php");
-//get difficulty topic question from jerry
+//get difficulty topic question constraint test cases from jerry
 $obj = new stdClass();
 $obj->difficulty = $_POST['difficulty'];
 $obj->topic = $_POST['topic'];
 $obj->question = $_POST['question'];
+if (!isset($_POST['konstraint'])){
+    $obj->constraint = "ITANI";
+} else {
+    $obj->constraint = $_POST['konstraint'];
+}
 $obj->funcName = $_POST['function'];
 $obj->case1 = $_POST['case1'];
 $obj->case2 = $_POST['case2'];
@@ -26,8 +31,8 @@ if (!isset($_POST['case5'])){
 
 $db = getDB();
 if (isset($db)) {
-    $stmt = $db->prepare("INSERT INTO Questions(difficulty, topic, question, func_name, case1, case2, case3, case4, case5) VALUES(:difficulty, :topic, :question, :func_name, :case1, :case2, :case3, :case4, :case5);");
-    $params = array(":difficulty" => $obj->difficulty, ":topic" => $obj->topic, ":question" => $obj->question, ":func_name" => $obj->funcName, ":case1" => $obj->case1, ":case2" => $obj->case2, ":case3" => $obj->case3, ":case4" => $obj->case4, ":case5" => $obj->case5);
+    $stmt = $db->prepare("INSERT INTO Questions(difficulty, topic, question, konstraint, func_name, case1, case2, case3, case4, case5) VALUES(:difficulty, :topic, :question, :konstraint, :func_name, :case1, :case2, :case3, :case4, :case5);");
+    $params = array(":difficulty" => $obj->difficulty, ":topic" => $obj->topic, ":question" => $obj->question, ":konstraint" => $obj->constraint, ":func_name" => $obj->funcName, ":case1" => $obj->case1, ":case2" => $obj->case2, ":case3" => $obj->case3, ":case4" => $obj->case4, ":case5" => $obj->case5);
     $r = $stmt->execute($params);
     $e = $stmt->errorInfo();
     if ($e[0] == "00000") {
