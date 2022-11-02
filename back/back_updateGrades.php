@@ -6,7 +6,11 @@ $obj->username = $_POST["username"];
 $obj->examID = $_POST["exam_id"];
 $obj->updatedPoints = $_POST["updated_points"];
 $obj->grade = $_POST["grade"];
-$obj->comments = $_POST["comments"];
+if (!isset($_POST["comments"])){
+    $obj->comments = "No teacher comments";
+} else {
+    $obj->comments = $_POST["comments"];
+}
 
 $db = getDB();
 if (isset($db)){
