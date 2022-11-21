@@ -35,10 +35,12 @@
 			echo "<th> Username </th>";
 			echo "<th> Exam ID </th>";
 			echo "<th> Test Name </th>";
+			/*
 			echo "<th> Earned Points </th>";
 			echo "<th> Updated Points </th>";
 			echo "<th> Grade </th>";
 			echo "<th> Comments </th>";
+			*/
 		echo "</tr>";
 
 	for ($i = 0; $i < sizeof($decodedData['examID']); $i++){
@@ -56,6 +58,7 @@
 				echo $decodedData['testName'][$i];
 			echo "</td>";
 
+			/*
 			$response = explode("?", $decodedData['earnedPoints'][$i]);
 			echo "<td style=\"height:100px;width:150px;text-align:center;\">";
 			foreach ($response as $ans){
@@ -79,6 +82,7 @@
 			echo "<td>";
 				echo $decodedData['comments'][$i];
 			echo "</td>";
+			*/
 
 		echo "</tr>";
 	}

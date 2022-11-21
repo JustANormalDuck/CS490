@@ -1,4 +1,5 @@
 <?php
+
 require_once 'teacherheader.php';
 if (isset($_POST['submit'])) 
   {
@@ -9,10 +10,10 @@ else
 $URL= 'https://afsaccess4.njit.edu/~nk82/middle_pullUngraded.php';
 $ch = curl_init();
 $options = array(CURLOPT_URL => $URL,
-			         CURLOPT_HTTPHEADER =>
+               CURLOPT_HTTPHEADER =>
 array('Content-type:application/x-www-form-urlencoded'),
-				 CURLOPT_RETURNTRANSFER => TRUE,
-				 CURLOPT_POST => TRUE);
+         CURLOPT_RETURNTRANSFER => TRUE,
+         CURLOPT_POST => TRUE);
 curl_setopt_array($ch, $options);
 $result = curl_exec($ch);
 $data=json_decode($result,true);
@@ -46,17 +47,28 @@ echo "
     <th></th>
   </tr>";
 
-for($i=0;$i<sizeof($data['examID']);$i++)
+$length = 0;
+
+if (empty($data['examID']))
+{
+  $length = 0;
+}
+else
+{
+  $length = sizeof($data['examID']);
+}
+
+for($i=0;$i<$length;$i++)
 {
   $URL= 'https://afsaccess4.njit.edu/~nk82/middle_pullQuestionIDs.php';
   $post_params="exam_id=".$data['examID'][$i];
   $ch = curl_init();
   $options = array(CURLOPT_URL => $URL,
-			         CURLOPT_HTTPHEADER =>
+               CURLOPT_HTTPHEADER =>
   array('Content-type:application/x-www-form-urlencoded'),
-				 CURLOPT_RETURNTRANSFER => TRUE,
-				 CURLOPT_POST => TRUE,
-				 CURLOPT_POSTFIELDS => $post_params);
+         CURLOPT_RETURNTRANSFER => TRUE,
+         CURLOPT_POST => TRUE,
+         CURLOPT_POSTFIELDS => $post_params);
   curl_setopt_array($ch, $options);
   $result = curl_exec($ch);
   curl_close($ch);
@@ -77,9 +89,6 @@ for($i=0;$i<sizeof($data['examID']);$i++)
   </tr>
   ";
 }
+
 }
 ?>
-
-<head>
-  <title>Autograde</title>
-</head>

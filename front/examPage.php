@@ -24,6 +24,7 @@
     $ptList = $_SESSION['ptlst'];
     #$URL = 'https://afsaccess4.njit.edu/~jmf64/back_addDefaultGrade.php';
     $URL= 'https://afsaccess4.njit.edu/~nk82/middle_addDefaultGrade.php';
+    $responses = str_replace('+','%2b',$responses);
     $post_params="username=$username&exam_id=$examNum&test_name=$testName&student_responses=$responses&possible_points=$ptList";
     $ch = curl_init();
     $options = array(CURLOPT_URL => $URL,
@@ -46,6 +47,8 @@
     unset($_SESSION['questionPts']);
     unset($_SESSION['testName']);
   }
+  else
+  {
 
   $username = $_SESSION['username'];
   $examNum = $_SESSION['examNum'];
@@ -58,7 +61,17 @@
   $qpts = array();
   $error = array();
 
-  for ($i = 0; $i < sizeof($questionLst); $i++){
+  $length = 0;
+  if (empty($questionLst))
+  {
+    $length = 0;
+  }
+  else
+  {
+    $length = sizeof($questionLst);
+  }
+
+  for ($i = 0; $i < $length; $i++){
     $qID= $questionLst[$i];
     $URL= 'https://afsaccess4.njit.edu/~nk82/middle_pullQuestion.php';
     $post_params="question_id=$qID";
@@ -103,7 +116,7 @@
   }
   echo "<input class='submit' name=\"submit\" type=\"submit\" align='center'/>";
   echo "</form>";
-
+  }
 ?>
 
 <head>

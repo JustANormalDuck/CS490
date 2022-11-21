@@ -1,4 +1,5 @@
 <?php
+
 require_once 'teacherheader.php';
 if (isset($_POST['submit'])) 
   {
@@ -46,7 +47,18 @@ echo "
     <th></th>
   </tr>";
 
-for($i=0;$i<sizeof($data['examID']);$i++)
+$length = 0;
+
+if (empty($data['examID']))
+{
+  $length = 0;
+}
+else
+{
+  $length = sizeof($data['examID']);
+}
+
+for($i=0;$i<$length;$i++)
 {
   $URL= 'https://afsaccess4.njit.edu/~nk82/middle_pullQuestionIDs.php';
   $post_params="exam_id=".$data['examID'][$i];
@@ -66,7 +78,7 @@ for($i=0;$i<sizeof($data['examID']);$i++)
   <tr>
     <td>".$data['testName'][$i]."</td>
     <td>".$data['username'][$i]."</td>
-    <td><form action=\"https://afsaccess4/~nk82/middle_autoGrade.php\" method=\"post\">
+    <td><form action=\"https://afsaccess4.njit.edu/~nk82/middle_autoGrade.php\" method=\"post\">
   <input type=\"hidden\" name=\"examID\" value='".trim($data['examID'][$i],"\r")."'>
   <input type=\"hidden\" name=\"username\" value='".trim($data['username'][$i],"\r")."'>
   <input type=\"hidden\" name=\"questionIDList\" value='".trim($temp,"\r")."'>
