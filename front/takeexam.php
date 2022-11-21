@@ -65,25 +65,29 @@
 
   }
 
-    echo "<form action=\"\" method=\"post\">";
+    
     echo "<label for='exam'> Choose Exam You would Like to Take: </label></br></br>";
+    echo "<table>";
     for ($i = 0; $i < $decodeLength; $i++){
-    echo "-----------------</br>Exam ID: ";
-    echo $decodedData['id'][$i];
-    echo "</br>";
+    echo "<tr>";
+    echo "<form action=\"\" method=\"post\">";
+    echo "<td> Exam ID: ". $decodedData['id'][$i] . "</td>";
 
-    echo "Test Name: ";
-    echo $decodedData['testName'][$i];
-    echo "</br>";
+    echo  "<td> Test Name: ". $decodedData['testName'][$i] . "</td>";
 
-    echo "Number of Questions: ";
-    echo $decodedData['numQuestions'][$i];
-    echo "</br>";
+    echo  "<td> Number of Questions: ". $decodedData['numQuestions'][$i] . "</td>";
+    echo "<input type=\"hidden\" id=\"id\" name=\"id\" value='".trim($decodedData['id'][$i],"\r")."'>";
+    echo "<td><input name=\"submit\" type=\"submit\" value='Take Exam'></td>";
+    echo "</form>";
+    echo "</tr>";
+    
   }
-
+  /*
   echo "<input name=\"id\" type=\"text\" placeholder='Enter Exam ID'/>"; 
   echo "<input class='submit' name=\"submit\" type=\"submit\" align='center'/>";
-  echo "</form>";
+  */
+  echo "</table>";
+
 ?>
 
 

@@ -3,10 +3,28 @@
 require_once 'teacherheader.php';
 if (isset($_POST['submit'])) 
   {
+    $examID=$_POST['examID'];
+    $username=$_POST['username'];
+    $questionIDs=$_POST['questionIDList'];
+    $responses=$_POST['responseList'];
+    $responses=str_replace('+','%2b',$responses);
+    $possible_points=$_POST['possible_points'];
+
+    $URL="https://afsaccess4.njit.edu/~nk82/middle_autoGrade.php";
+    $post_params="examID=$examID&username=$username&questionIDList=$questionIDs&responseList=$responses&possible_points=$possible_points";
+    $ch = curl_init();
+    $options = array(CURLOPT_URL => $URL,
+			         CURLOPT_HTTPHEADER =>
+    array('Content-type:application/x-www-form-urlencoded'),
+				   CURLOPT_RETURNTRANSFER => TRUE,
+				   CURLOPT_POST => TRUE,
+           CURLOPT_POSTFIELDS => $post_params);
+    curl_setopt_array($ch, $options);
+    $result = curl_exec($ch);
+    $data=json_decode($result,true);
+
     echo "Grades Submitted";
   }
-else
-{
 $URL= 'https://afsaccess4.njit.edu/~nk82/middle_pullUngraded.php';
 $ch = curl_init();
 $options = array(CURLOPT_URL => $URL,
@@ -78,7 +96,7 @@ for($i=0;$i<$length;$i++)
   <tr>
     <td>".$data['testName'][$i]."</td>
     <td>".$data['username'][$i]."</td>
-    <td><form action=\"https://afsaccess4/~nk82/middle_autoGrade.php\" method=\"post\">
+    <td><form action=\"\" method=\"post\">
   <input type=\"hidden\" name=\"examID\" value='".trim($data['examID'][$i],"\r")."'>
   <input type=\"hidden\" name=\"username\" value='".trim($data['username'][$i],"\r")."'>
   <input type=\"hidden\" name=\"questionIDList\" value='".trim($temp,"\r")."'>
@@ -90,5 +108,4 @@ for($i=0;$i<$length;$i++)
   ";
 }
 
-}
 ?>

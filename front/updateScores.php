@@ -3,7 +3,6 @@
 
 	$username = $_SESSION["username"];
 	$role = $_SESSION["role"];
-
 	$URL= 'https://afsaccess4.njit.edu/~nk82/middle_pullGrades.php';
 	$post_params="username=$username&role=$role";
 	$ch = curl_init();
@@ -31,6 +30,7 @@
 	}
 
 	echo "<table>";
+	
 		echo "<tr>";
 			echo "<th> Username </th>";
 			echo "<th> Exam ID </th>";
@@ -45,7 +45,7 @@
 
 	for ($i = 0; $i < sizeof($decodedData['examID']); $i++){
 		echo "<tr>";
-
+		echo "<form action=\"\" method=\"post\">";
 			echo "<td>";
 				echo $decodedData['username'][$i];
 			echo "</td>";
@@ -58,6 +58,11 @@
 				echo $decodedData['testName'][$i];
 			echo "</td>";
 
+			echo "<td>";
+				echo "<input type=\"hidden\" id=\"id\" name=\"id\" value='".$decodedData['examID'][$i]."'>";
+				echo "<input type=\"hidden\" id=\"username\" name=\"username\" value='".$decodedData['username'][$i]."'>";
+				echo "<input name=\"submit\" type=\"submit\" value='Update Exam'>";
+			echo "</td>";
 			/*
 			$response = explode("?", $decodedData['earnedPoints'][$i]);
 			echo "<td style=\"height:100px;width:150px;text-align:center;\">";
@@ -83,20 +88,11 @@
 				echo $decodedData['comments'][$i];
 			echo "</td>";
 			*/
-
+			echo "</form>";
 		echo "</tr>";
 	}
-
+	
 	echo "</table>";
-
-	echo "<form action=\"\" method=\"post\">";
-		echo "</br> </br>";
-		echo "<input align='center' name=\"username\" type=\"text\" placeholder='Enter Username'/>";
-		echo "</br>";
-		echo "<input align='center' name=\"id\" type=\"text\" placeholder='Enter Exam ID'/>";
-		echo "</br>";
-		echo "<input class='submit' name=\"submit\" type=\"submit\" align='center'/>";
-	echo "</form>";
 ?>
 
 <head>
