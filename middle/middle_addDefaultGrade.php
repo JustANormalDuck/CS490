@@ -3,6 +3,8 @@ $username= $_POST['username'];
 $examID = $_POST['exam_id'];
 $testName= $_POST['test_name'];
 $responses=$_POST['student_responses'];
+$responses=str_replace('%','%25',$responses); 
+$responses=str_replace('+','%2b',$responses); 
 $possible_points=$_POST['possible_points'];
 $URL= 'https://afsaccess4.njit.edu/~jmf64/back_addDefaultGrade.php';
 $post_params="username=$username&exam_id=$examID&test_name=$testName&student_responses=$responses&possible_points=$possible_points";

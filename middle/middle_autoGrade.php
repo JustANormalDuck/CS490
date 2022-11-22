@@ -14,6 +14,7 @@
     $comments='';
     for ($i=0; $i<sizeof($questionIDs);$i++)
     {
+        $qmax=0; //Used to split points evenly for the normal test cases
         $qGrade=$possible_pointsArray[$i];
 
         $qGrade=intval($qGrade);
@@ -37,17 +38,48 @@
         $functionName=explode(" ",$functionName);
         #then our second element explode our second element with ( as the delimter
         $functionName=explode("(",$functionName[1]);
-
+        if($result['constraint']=='recursion')
+        {
+          if(substr_count($responses[$i],$functionName[0])<2)
+          {
+            $comments=$comments."Constraint?Expected:{$result['constraint']}?Recieved:None?Points:0/5\n";
+            $qlost-=5;
+          }
+          else
+          {
+            $comments=$comments."Constraint?Expected:{$result['constraint']}?Recieved:Constraint Satisfied?Points:5/5\n";
+            $qmax-=5;
+          }
+        
+        }
+        else if($result['constraint']!='ITANI')
+        {
+          if (strpos($responses[$i], $result['constraint']) == false) 
+          {
+            $comments=$comments."Constraint?Expected:{$result['constraint']}?Recieved:None?Points:0/5\n";
+            $qGrade-=5;
+          }
+          else
+          {
+            $comments=$comments."Constraint?Expected:{$result['constraint']}?Recieved:Constraint Satisfied?Points:5/5\n";
+            $qmax-=5;
+          }
+        }
         if($functionName[0]!=$result['func_name'])
         {
 
-            $responses[$i] = preg_replace('/'.$functionName[0].'/',$result['func_name'],$responses[$i],1);
-            $comments=$comments."\n Autograder: Question $questionNum failed to match function name (Expected: {$result['func_name']}, Wrote: {$functionName[0]})";
+            $responses[$i] = preg_replace('/'.$functionName[0].'/',$result['func_name'],$responses[$i]); // remove the 1 parameter at the end for recursion
+            $comments=$comments."Function Name?Expected:{$result['func_name']}?Recieved:{$functionName[0]}?Points:0/5\n";
             $qGrade-=5;
+        }
+        else
+        {
+          $comments=$comments."Function Name?Expected:{$result['func_name']}?Recieved:{$functionName[0]}?Points:5/5\n";
+          $qmax-=5;
         }
 
         $counter=0;
-        while(true)
+        while($counter<5)
         {
           $temp=$counter+1;
           if($result['case'.$temp]!="ITANI")
@@ -60,7 +92,7 @@
           }
 
         }
-        $lost=$qGrade/$counter;#divide rest of points between test cases
+        $lost=($qGrade+$qmax)/$counter;#divide rest of points between test cases ($qGrade+$qmax) is there because if they got the other correct they still need to split evenly
         for ($x=1; $x<=$counter;$x++)
         {
             $case=explode('?',$result['case'.$x]);
@@ -75,15 +107,19 @@
                 $qGrade-=$lost;
                 if(strpos($output,"Error") !== false)
                 {
-                 $comments=$comments."\n Autograder: Question $questionNum test case $x failed due to an error in the code";
+                 $comments=$comments."{$case[0]}?Expected:{$case[1]}?Recieved:No output due to error in code?Points:0/$lost\n";
                 }
                 else
                 {
-                  $comments=$comments."\n Autograder: Question $questionNum test case $x failed (Expected output: {$case[1]}, Recieved output: $output) Lost:-$lost";
+                  $comments=$comments."{$case[0]}?Expected:{$case[1]}?Recieved:$output?Points:0/$lost\n";
                 }
             }
+            else
+            {
+              $comments=$comments."{$case[0]}?Expected:{$case[1]}?Recieved:$output?Points:$lost/$lost\n";
+            }
         }
-
+        $comments=$comments."$$$"; #This will be our question delimter for parsing.
         if($i+1==sizeof($questionIDs))
         {
             $grades.=strval($qGrade); 
@@ -93,7 +129,7 @@
             $grades.=strval($qGrade.',');
         }
         $finalGrade+=$qGrade;
-        $finalGrade=round($finalGrade);
+        $finalGrade=round($finalGrade,2);
         $questionNum+=1;
     }
 
@@ -111,8 +147,9 @@
     curl_setopt_array($ch, $options);
     $result = curl_exec($ch);
     curl_close($ch);
+    echo $result; // remove if it causes issues 
     $data=json_decode($result,true);
-    die(header('Location: https://afsaccess4.njit.edu/~jz565/frontAutograde.php'));
+    //die(header('Location: https://afsaccess4.njit.edu/~jz565/frontAutograde.php'));
     
     
 
